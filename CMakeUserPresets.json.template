@@ -7,7 +7,7 @@
 				"AUTO_PLUGIN_DEPLOYMENT": "ON"
 			},
 			"environment": {
-				"SamplePluginOutputDir": "C:/Program Files (x86)/Steam/steamapps/common/Skyrim Special Edition/Data"
+				"DualWieldParryingNGOutputDir": "C:/Program Files (x86)/Steam/steamapps/common/Skyrim Special Edition/Data"
 			},
 			"inherits": "ALL"
 		}

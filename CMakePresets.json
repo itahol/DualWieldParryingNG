@@ -66,6 +66,44 @@
 				"win64",
 				"msvc"
 			]
+		},
+		{
+			"name": "FLATRIM",
+			"cacheVariables": {
+				"BUILD_SKYRIM": true,
+				"ENABLE_SKYRIM_AE": "ON",
+				"ENABLE_SKYRIM_SE": "ON",
+				"ENABLE_SKYRIM_VR": "OFF"
+			},
+			"inherits": [
+				"common",
+				"vcpkg",
+				"win64",
+				"msvc"
+			]
+		},
+		{
+			"name": "autodeploy",
+			"cacheVariables": {
+				"AUTO_PLUGIN_DEPLOYMENT": "ON"
+			},
+			"environment": {
+				"DualWieldParryingNGOutputDir": "C:\\Users\\Itamar\\AppData\\Local\\ModOrganizer\\SkyrimSE\\mods\\Dual Wield Parrying NG"
+			}
+		},
+		{
+			"name": "ALL-WITH-AUTO-DEPLOY",
+			"inherits": [
+				"ALL",
+				"autodeploy"
+			]
+		},
+		{
+			"name": "FLATRIM-WITH-AUTO-DEPLOY",
+			"inherits": [
+				"FLATRIM",
+				"autodeploy"
+			]
 		}
 	]
 }
