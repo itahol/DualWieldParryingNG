@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.21)
 
 project(
 	DualWieldParryingNG
-	VERSION 0.7.5
+	VERSION 1.0.0
 	LANGUAGES CXX
 )
 
@@ -31,6 +31,17 @@ find_package(magic_enum CONFIG REQUIRED)
 find_package(xbyak CONFIG REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
 find_path(CLIB_UTIL_INCLUDE_DIRS "ClibUtil/utils.hpp")
+
+target_sources(
+	${PROJECT_NAME}
+	PRIVATE
+	src/InputEventHandler.cpp
+	src/Settings.cpp
+	src/DummyBSInputDevice.cpp
+	src/DummyBSIInputDevice.cpp
+	src/DummyBSWin32KeyboardDevice.cpp
+	src/DummyBSKeyboardDevice.cpp
+)
 
 target_include_directories(
 	${PROJECT_NAME}
