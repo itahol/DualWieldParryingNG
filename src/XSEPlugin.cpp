@@ -53,6 +53,11 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Load(const SKSE::LoadInterface* a_s
 	InitializeLog();
 	logger::info("Loaded plugin {} {}", Plugin::NAME, Plugin::VERSION.string());
 	SKSE::Init(a_skse);
+	try {
+		Settings::GetSingleton()->Load();
+	} catch (...) {
+		logger::error("Exception caught when loading settings! Default settings will be used");
+	}
 	SKSE::GetMessagingInterface()->RegisterListener(MessageHandler);
 	return true;
 }
