@@ -26,8 +26,8 @@ void InitializeLog([[maybe_unused]] spdlog::level::level_enum a_level = spdlog::
 }
 
 /**
-     * Initialize the event handler.
-     */
+* Initialize the event handler.
+*/
 void InitializeEventHandler()
 {
 	spdlog::trace("Initializing event sink...");
