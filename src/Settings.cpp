@@ -6,7 +6,7 @@ Settings* Settings::GetSingleton() {
 }
 
 void Settings::Load() {
-    constexpr auto path = L"Data/SKSE/Plugins/DualWieldParryingSKSE.ini";
+	constexpr auto path = SETTINGS_INI_FILE;
 
     CSimpleIniA ini;
     ini.SetUnicode();

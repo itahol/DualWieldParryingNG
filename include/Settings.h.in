@@ -1,5 +1,5 @@
 #pragma once
-#define SETTINGS_INI_FILE (L"Data/SKSE/Plugins/DualWieldParryingNG.ini")
+#define SETTINGS_INI_FILE (L"Data/SKSE/Plugins/@PROJECT_NAME@.ini")
 
 // Thanks to: https://github.com/powerof3/CLibUtil
 namespace string {

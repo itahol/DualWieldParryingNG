@@ -86,9 +86,6 @@
 			"name": "autodeploy",
 			"cacheVariables": {
 				"AUTO_PLUGIN_DEPLOYMENT": "ON"
-			},
-			"environment": {
-				"DualWieldParryingNGOutputDir": "C:\\Users\\Itamar\\AppData\\Local\\ModOrganizer\\SkyrimSE\\mods\\Dual Wield Parrying NG"
 			}
 		},
 		{
