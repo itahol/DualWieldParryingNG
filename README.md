@@ -1,6 +1,6 @@
-# CommonLibSSE-NG Plugin Template
+# Dual Wield Parrying NG
 
-Template for building SKSE plugins using the NG branch of CommonLibVR.  
+A version of the [Dual Wield Parrying SKSE](https://github.com/DennisSoemers/DualWieldParryingSKSE.git) that supports newer versions of the game (1.6.1130+).
 
 ## Requirements
 
@@ -30,22 +30,25 @@ Template for building SKSE plugins using the NG branch of CommonLibVR.
 - Close the cmd window
 
 ## Clone and Build
-Open terminal (e.g., PowerShell) and run the following commands:
+Open terminal (e.g., PowerShell) and run the following command in the root folder to build the plugin:
 
 ```
-git clone https://github.com/ponzipyramid/CommonLibSSE-NG-Template.git --recursive
-cd CommonLibSSE-NG-Template
+git clone https://github.com/itahol/DualWieldParryingNG.git --recursive
+cd DualWieldParryingNG
 .\BuildRelease.bat
 ```
 
-### CMAKE Options (optional)
-If you want an example CMakeUserPreset to start off with you can copy the `CMakeUserPresets.json.template` -> `CMakeUserPresets.json`
+You can target different presets like this:
+```
+.\BuildRelease.bat FLATRIM
+```
+
 #### AUTO_PLUGIN_DEPLOYMENT
 * This option is default `"OFF"`
 * Make sure `"AUTO_PLUGIN_DEPLOYMENT"` is set to `"ON"` in `CMakeUserPresets.json`
-* Change the `"SamplePluginOutputDir"` value to match your desired outputs, if you want multiple folders you can separate them by `;` is shown in the template example
+* Change the `DualWieldParryingNGOutputDir"` value to match your desired outputs, if you want multiple folders you can separate them by `;` is shown in the template example
 
 When using custom preset you can call BuildRelease.bat with an parameter to specify which preset to configure eg:
-`.\BuildRelease.bat ALL-WITH-AUTO-DEPLOYMENT`
+`.\BuildRelease.bat ALL-WITH-AUTO-DEPLOY`
 
 When switching between different presets you might need to remove the build folder
