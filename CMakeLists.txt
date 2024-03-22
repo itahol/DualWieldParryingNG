@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.21)
 
 project(
 	DualWieldParryingNG
-	VERSION 0.7.5
+	VERSION 1.0.0
 	LANGUAGES CXX
 )
 
@@ -12,7 +12,7 @@ list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 # ## Build options
 # ########################################################################################################################
 message("Options:")
-option(AUTO_PLUGIN_DEPLOYMENT "Copy the build output and addons to env:DualWieldParryingNGOutputDir." OFF)
+option(AUTO_PLUGIN_DEPLOYMENT "Copy the build output and addons to env:${PROJECT_NAME}OutputDir." OFF)
 option(ZIP_TO_DIST "Zip the base mod and addons to their own 7z file in dist." ON)
 option(AIO_ZIP_TO_DIST "Zip the base mod and addons to a AIO 7z file in dist." OFF)
 message("\tAuto plugin deployment: ${AUTO_PLUGIN_DEPLOYMENT}")
@@ -31,6 +31,29 @@ find_package(magic_enum CONFIG REQUIRED)
 find_package(xbyak CONFIG REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
 find_path(CLIB_UTIL_INCLUDE_DIRS "ClibUtil/utils.hpp")
+
+configure_file(
+	${CMAKE_CURRENT_SOURCE_DIR}/include/Settings.in.h
+	${CMAKE_CURRENT_SOURCE_DIR}/include/Settings.h
+	@ONLY
+)
+
+configure_file(
+	${CMAKE_CURRENT_SOURCE_DIR}/Settings.in.ini
+	${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.ini
+	@ONLY
+)
+
+target_sources(
+	${PROJECT_NAME}
+	PRIVATE
+	src/InputEventHandler.cpp
+	src/Settings.cpp
+	src/DummyBSInputDevice.cpp
+	src/DummyBSIInputDevice.cpp
+	src/DummyBSWin32KeyboardDevice.cpp
+	src/DummyBSKeyboardDevice.cpp
+)
 
 target_include_directories(
 	${PROJECT_NAME}
@@ -70,15 +93,16 @@ endif()
 # # Automatic deployment
 # #######################################################################################################################
 if(AUTO_PLUGIN_DEPLOYMENT)
-	foreach(DEPLOY_TARGET $ENV{DualWieldParryingNGOutputDir})
+	foreach(DEPLOY_TARGET $ENV{${PROJECT_NAME}OutputDir})
 		message("Copying AIO to ${DEPLOY_TARGET}")
 		add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 			COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> "${DEPLOY_TARGET}/SKSE/Plugins/"
 			COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_PDB_FILE:${PROJECT_NAME}> "${DEPLOY_TARGET}/SKSE/Plugins/"
+			COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/${PROJECT_NAME}.ini" "${DEPLOY_TARGET}/SKSE/Plugins/"
 		)
 	endforeach()
 
-	if(NOT DEFINED ENV{DualWieldParryingNGOutputDir})
-		message("When using AUTO_PLUGIN_DEPLOYMENT option, you need to set environment variable 'DualWieldParryingNGOutputDir'")
+	if(NOT DEFINED ENV{${PROJECT_NAME}OutputDir})
+		message("When using AUTO_PLUGIN_DEPLOYMENT option, you need to set environment variable '${PROJECT_NAME}OutputDir'")
 	endif()
 endif()

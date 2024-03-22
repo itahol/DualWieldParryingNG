@@ -1,4 +1,5 @@
 #define DLLEXPORT __declspec(dllexport)
+#include "InputEventHandler.h"
 
 void InitializeLog([[maybe_unused]] spdlog::level::level_enum a_level = spdlog::level::info)
 {
@@ -24,11 +25,40 @@ void InitializeLog([[maybe_unused]] spdlog::level::level_enum a_level = spdlog::
 	spdlog::set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%l] [%t] [%s:%#] %v");
 }
 
+/**
+* Initialize the event handler.
+*/
+void InitializeEventHandler()
+{
+	spdlog::trace("Initializing event sink...");
+
+	auto inputDeviceManager = RE::BSInputDeviceManager::GetSingleton();
+	if (inputDeviceManager) {
+		inputDeviceManager->AddEventSink(&DualWieldParryingNG::InputEventHandler::GetSingleton());
+		spdlog::trace("Event sink initialized.");
+	} else {
+		stl::report_and_fail("Failed to initialize event sink.");
+	}
+}
+
+void MessageHandler(SKSE::MessagingInterface::Message* a_msg)
+{
+	if (a_msg->type == SKSE::MessagingInterface::kDataLoaded) {
+		InitializeEventHandler();
+	}
+}
+
 extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Load(const SKSE::LoadInterface* a_skse)
 {
 	InitializeLog();
 	logger::info("Loaded plugin {} {}", Plugin::NAME, Plugin::VERSION.string());
 	SKSE::Init(a_skse);
+	try {
+		Settings::GetSingleton()->Load();
+	} catch (...) {
+		logger::error("Exception caught when loading settings! Default settings will be used");
+	}
+	SKSE::GetMessagingInterface()->RegisterListener(MessageHandler);
 	return true;
 }
 
