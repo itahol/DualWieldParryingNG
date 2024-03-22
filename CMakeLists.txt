@@ -33,7 +33,7 @@ find_package(nlohmann_json CONFIG REQUIRED)
 find_path(CLIB_UTIL_INCLUDE_DIRS "ClibUtil/utils.hpp")
 
 configure_file(
-	${CMAKE_CURRENT_SOURCE_DIR}/include/Settings.h.in 
+	${CMAKE_CURRENT_SOURCE_DIR}/include/Settings.in.h
 	${CMAKE_CURRENT_SOURCE_DIR}/include/Settings.h 
 	@ONLY
 )

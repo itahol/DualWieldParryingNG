@@ -1,4 +1,5 @@
 build/
 dist/
+include/Settings.h
 .vs*/
 CMakeUserPresets.json
