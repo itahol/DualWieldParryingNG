@@ -1,5 +1,6 @@
 build/
 dist/
 include/Settings.h
+DualWieldParryingNG.ini
 .vs*/
 CMakeUserPresets.json

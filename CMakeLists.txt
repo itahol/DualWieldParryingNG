@@ -34,7 +34,13 @@ find_path(CLIB_UTIL_INCLUDE_DIRS "ClibUtil/utils.hpp")
 
 configure_file(
 	${CMAKE_CURRENT_SOURCE_DIR}/include/Settings.in.h
-	${CMAKE_CURRENT_SOURCE_DIR}/include/Settings.h 
+	${CMAKE_CURRENT_SOURCE_DIR}/include/Settings.h
+	@ONLY
+)
+
+configure_file(
+	${CMAKE_CURRENT_SOURCE_DIR}/Settings.in.ini
+	${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.ini
 	@ONLY
 )
 
