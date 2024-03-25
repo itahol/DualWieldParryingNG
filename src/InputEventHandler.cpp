@@ -60,6 +60,7 @@ RE::BSEventNotifyControl InputEventHandler::ProcessEvent(RE::InputEvent* const* 
                                             auto keyCode = buttonEvent->GetIDCode();
 
                                             if (buttonEvent->device.get() == RE::INPUT_DEVICE::kMouse) {
+                                                // key code 259 isn't real (it should be mouse button 3 but that's 258) - so we want to skip it
 												keyCode += 256 + int(keyCode >= 3);
                                             } else if (buttonEvent->device.get() == RE::INPUT_DEVICE::kGamepad) {
                                                 RE::BSWin32GamepadDevice::Key gamepadKey =
