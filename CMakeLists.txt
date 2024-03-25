@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.21)
 
 project(
 	DualWieldParryingNG
-	VERSION 1.0.0
+	VERSION 1.0.1
 	LANGUAGES CXX
 )
 
@@ -87,6 +87,26 @@ if(MSVC_VERSION GREATER_EQUAL 1936 AND MSVC_IDE) # 17.6+
   </ItemDefinitionGroup>
 </Project>
 ]==] @ONLY)
+endif()
+
+if(ZIP_TO_DIST)
+    message("Making a zip for distribution")
+    set(CPACK_GENERATOR "7Z")  # Use the 7z generator
+    set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}")  # Set the name of the generated package
+    set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY OFF)  # Do not include top-level directory in the package
+    install(FILES "$<TARGET_FILE:${PROJECT_NAME}>" DESTINATION "SKSE/Plugins")
+    install(FILES "$<TARGET_PDB_FILE:${PROJECT_NAME}> " DESTINATION "SKSE/Plugins")
+    install(FILES "${CMAKE_SOURCE_DIR}/${PROJECT_NAME}.ini" DESTINATION "SKSE/Plugins")
+    include(CPack)
+
+    # Run CPack after the build
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E echo "Packaging for distribution..."
+        COMMAND ${CMAKE_COMMAND} -E echo "CPack configuration: ${CPACK_GENERATOR}"
+        COMMAND cpack --config ${CMAKE_BINARY_DIR}/CPackConfig.cmake
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+        COMMENT "Packaging for distribution..."
+    )
 endif()
 
 # #######################################################################################################################
